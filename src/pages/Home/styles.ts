@@ -6,6 +6,18 @@ export const Container = styled.section`
   padding: 0 20px;
   margin: 0 auto;
   padding-bottom: 100px;
+
+  .not-found {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-top: 4rem;
+
+    h3 {
+      font-size: 2rem;
+    }
+  }
 `;
 
 export const Filters = styled.div`
@@ -32,11 +44,28 @@ export const Filters = styled.div`
       width: 100%;
       border: 0;
       outline: none;
+      flex: 1;
     }
 
     svg {
       color: var(--dark-grey);
       margin-right: 20px;
+    }
+
+    button {
+      border: 0;
+      padding: 0;
+      display: flex;
+      background: transparent;
+
+      svg {
+        margin: 0;
+        transition: color .2s;
+      }
+
+      &:hover svg {
+        color: var(--dark-blue);
+      }
     }
   }
 

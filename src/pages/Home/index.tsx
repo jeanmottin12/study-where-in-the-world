@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { FiSearch } from "react-icons/fi";
+import { FiSearch, FiXCircle } from "react-icons/fi";
 import { CardCountry } from '../../components/CardCountry';
 
 import { Header } from '../../components/Header';
@@ -21,26 +21,47 @@ export function Home() {
   const [searchValue, setSearchValue] = useState('');
   const [countries, setCountries] = useState<Country[]>([]);
   const [loading, setLoading] = useState(false);
+  const [notFound, setNotFound] = useState(false);
+
+  async function getAllCountries() {
+    setLoading(true);
+
+    const response = await api.get('/all');
+    setCountries(response.data);
+
+    setLoading(false);
+  }
 
   useEffect(() => {
-    async function getAllCountries() {
-      setLoading(true);
-
-      const response = await api.get('/all');
-
-      setCountries(response.data);
-      setLoading(false);
-    }
-
     getAllCountries();
-  }, [])
+  }, []);
+
+  function resetCountries() {
+    getAllCountries();
+    setSearchValue('');
+    setNotFound(false);
+  }
 
   return (
     <main>
       <Header />
       <Container>
         <Filters>
-          <form>
+          <form onSubmit={async (e: React.SyntheticEvent) => {
+              e.preventDefault();
+
+              try {
+                setLoading(true);
+                const responseSearch = await api.get(`/name/${searchValue}`);
+                setCountries(responseSearch.data);
+                setNotFound(false);
+                setLoading(false);
+              } catch (err) {
+                setNotFound(true);
+                setLoading(false);
+              }
+            }}
+          >
             <FiSearch size={24} />
             <input
               type="text"
@@ -48,6 +69,11 @@ export function Home() {
               value={searchValue}
               onChange={e => setSearchValue(e.target.value)}
             />
+            {searchValue.length > 0 && (
+              <button type="button" onClick={resetCountries}>
+                <FiXCircle size={24} />
+              </button>
+            )}
           </form>
 
           <select name="">
@@ -60,12 +86,16 @@ export function Home() {
         </Filters>
 
         {loading && <Loader />}
-        {countries.length > 0 && (
+        {!notFound ? countries.length > 0 && (
           <CardGrid>
             {countries.map((country, index) => (
               <CardCountry key={index} data={country} />
             ))}
           </CardGrid>
+        ) : (
+          <div className="not-found">
+            <h3>Not found</h3>
+          </div>
         )}
       </Container>
     </main>

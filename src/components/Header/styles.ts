@@ -17,10 +17,16 @@ export const Container = styled.header`
   }
 
   h1 {
-    font-size: 30px;
+    font-size: 1.9rem;
   }
 
   span {
     font-weight: 600;
+  }
+
+  @media (max-width: 600px) {
+    h1 {
+      font-size: 1.2rem;
+    }
   }
 `;
