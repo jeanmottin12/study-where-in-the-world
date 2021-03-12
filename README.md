@@ -7,7 +7,7 @@ This is a solution to the [REST Countries API with color theme switcher challeng
 - [Overview](#overview)
   - [The challenge](#the-challenge)
   <!-- - [Screenshot](#screenshot) -->
-  <!-- - [Links](#links) -->
+  - [Links](#links)
 - [My process](#my-process)
   - [Built with](#built-with)
   <!-- - [Useful resources](#useful-resources) -->
@@ -38,9 +38,9 @@ Then crop/optimize/edit your image however you like, add it to your project, and
 
 **Note: Delete this note and the paragraphs above when you add your screenshot. If you prefer not to add a screenshot, feel free to remove this entire section.** -->
 
-<!-- ### Links
+### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com) -->
+- Solution URL: [Add solution URL here](https://where-in-the-world.jeanmottin.dev/)
 
 ## My process
 
@@ -54,6 +54,7 @@ Then crop/optimize/edit your image however you like, add it to your project, and
 - [React](https://reactjs.org/) - JS library
 - [Styled Components](https://styled-components.com/) - For styles
 - [Axios](https://github.com/axios/axios) - For get datas.
+- [Vercel](https://vercel.com/) - For deploy.
 <!--
 ### Useful resources
 

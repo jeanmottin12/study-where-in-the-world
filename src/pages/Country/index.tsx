@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory, Link } from 'react-router-dom';
 
 import { Header } from '../../components/Header';
 import { Loader } from '../../components/Loader';
@@ -104,7 +104,11 @@ export function Country() {
 
                 <div className="border-countries">
                   <p>Border Countries: </p>
-                  {country?.borders.map(border => <span key={border}>{border}</span>)}
+                  {country?.borders.map(border => (
+                    <Link key={border} to={`/country/${border}`}>
+                      {border}
+                    </Link>
+                  ))}
                 </div>
               </div>
             </div>

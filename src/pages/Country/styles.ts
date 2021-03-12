@@ -79,7 +79,7 @@ export const Container = styled.section`
         margin-right: 15px;
       }
 
-      span {
+      a {
         min-width: 100px;
         height: 30px;
 
@@ -93,6 +93,13 @@ export const Container = styled.section`
 
         margin-right: 10px;
         margin-bottom: 10px;
+
+        transition: background .2s, color .2s;
+
+        &:hover {
+          background: var(--dark-blue);
+          color: var(--white);
+        }
       }
     }
   }
