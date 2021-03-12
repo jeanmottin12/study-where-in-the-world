@@ -69,6 +69,21 @@ export const Filters = styled.div`
     }
   }
 
+  .react-select {
+    width: 100%;
+    max-width: 250px;
+
+    & > div {
+      min-height: 60px;
+      box-shadow: 0 0 30px rgb(0 0 0 / 8%);
+      border: 0;
+
+      & > div > span {
+        display: none;
+      }
+    }
+  }
+
   select {
     margin-left: 20px;
     background: var(--white);

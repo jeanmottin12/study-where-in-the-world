@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
+import Select from 'react-select';
 import { FiSearch, FiXCircle } from "react-icons/fi";
-import { CardCountry } from '../../components/CardCountry';
 
+import { CardCountry } from '../../components/CardCountry';
 import { Header } from '../../components/Header';
 import { Loader } from '../../components/Loader';
 import api from '../../services/api';
@@ -16,6 +17,14 @@ interface Country {
   capital: string;
   alpha3Code: string;
 }
+
+const regionOptions = [
+  { value: 'africa', label: 'Africa' },
+  { value: 'americas', label: 'Americas' },
+  { value: 'asia', label: 'Asia' },
+  { value: 'europe', label: 'Europe' },
+  { value: 'oceania', label: 'Oceania' }
+]
 
 export function Home() {
   const [searchValue, setSearchValue] = useState('');
@@ -40,6 +49,15 @@ export function Home() {
     getAllCountries();
     setSearchValue('');
     setNotFound(false);
+  }
+
+  async function handleRegion(value: any) {
+    setLoading(true);
+
+    const response = await api.get(`/region/${value.value}`);
+    setCountries(response.data);
+
+    setLoading(false);
   }
 
   return (
@@ -76,13 +94,12 @@ export function Home() {
             )}
           </form>
 
-          <select name="">
-            <option value="">Africa</option>
-            <option value="">America</option>
-            <option value="">Asia</option>
-            <option value="">Europe</option>
-            <option value="">Oceania</option>
-          </select>
+          <Select
+            placeholder="Filter by Region"
+            options={regionOptions}
+            onChange={(value) => handleRegion(value)}
+            className="react-select"
+          />
         </Filters>
 
         {loading && <Loader />}
