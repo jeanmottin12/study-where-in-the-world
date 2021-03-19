@@ -1,11 +1,23 @@
 import styled from 'styled-components';
 
-export const Container = styled.section`
-  max-width: 1440px;
-  width: 100%;
-  padding: 0 20px;
-  margin: 0 auto;
+interface HomeProps {
+  theme: boolean;
+}
+
+export const Container = styled.section<HomeProps>`
+  background: ${props => props.theme === true ? 'var(--dark-mode-bg)' : 'var(--light-mode-bg)'};
+  color: ${props => props.theme === true ? 'var(--white)' : 'var(--light-mode-text)'};
   padding-bottom: 100px;
+  min-height: calc(100vh - 80px);
+
+  transition: background .2s, color .2s;
+
+  & > div {
+    max-width: 1440px;
+    width: 100%;
+    padding: 0 20px;
+    margin: 0 auto;
+  }
 
   .not-found {
     display: flex;
@@ -20,7 +32,7 @@ export const Container = styled.section`
   }
 `;
 
-export const Filters = styled.div`
+export const Filters = styled.div<HomeProps>`
   padding: 50px 0;
 
   display: flex;
@@ -28,10 +40,14 @@ export const Filters = styled.div`
   justify-content: space-between;
 
   form {
+    background: ${props => props.theme === true ? 'var(--dark-blue)' : 'var(--white)'};
+    color: ${props => props.theme === true ? 'var(--white)' : 'var(--light-mode-text)'};
     display: flex;
     align-items: center;
+    margin-right: 30px;
 
-    background: var(--white);
+    transition: background .2s, color .2s;
+
     border-radius: 5px;
     padding: 15px 25px;
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.08);
@@ -41,15 +57,21 @@ export const Filters = styled.div`
     height: 60px;
 
     input {
+      background: ${props => props.theme === true ? 'var(--dark-blue)' : 'var(--white)'};
+      color: ${props => props.theme === true ? 'var(--white)' : 'var(--light-mode-text)'};
       width: 100%;
       border: 0;
       outline: none;
       flex: 1;
+
+      transition: background .2s, color .2s;
     }
 
     svg {
-      color: var(--dark-grey);
+      color: ${props => props.theme === true ? 'var(--white)' : 'var(--dark-grey)'};
       margin-right: 20px;
+
+      transition: background .2s, color .2s;
     }
 
     button {
@@ -77,6 +99,8 @@ export const Filters = styled.div`
       min-height: 60px;
       box-shadow: 0 0 30px rgb(0 0 0 / 8%);
       border: 0;
+      background: ${props => props.theme === true ? 'var(--dark-blue)' : 'var(--white)'};
+      color: ${props => props.theme === true ? 'var(--white)' : 'var(--light-mode-text)'};
 
       & > div > span {
         display: none;
@@ -101,7 +125,11 @@ export const Filters = styled.div`
   @media (max-width: 480px) {
     flex-direction: column;
 
-    select {
+    form {
+      margin-right: 0;
+    }
+
+    .react-select {
       max-width: 100%;
       margin-left: 0;
       margin-top: 40px;

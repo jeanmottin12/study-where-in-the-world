@@ -1,9 +1,16 @@
 import styled from 'styled-components';
 
-export const Container = styled.li`
-  background: var(--white);
+interface CardProps {
+  theme: boolean;
+}
+
+export const Container = styled.li<CardProps>`
+  background: ${props => props.theme === true ? 'var(--dark-blue)' : 'var(--white)'};
+  color: ${props => props.theme === true ? 'var(--white)' : 'var(--light-mode-text)'};
   border-radius: 5px;
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.08);
+
+  transition: background .2s, color .2s;
 
   img {
     width: 100%;

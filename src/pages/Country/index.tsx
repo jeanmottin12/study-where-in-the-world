@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useParams, useHistory, Link } from 'react-router-dom';
 
 import { Header } from '../../components/Header';
@@ -9,6 +9,7 @@ import api from '../../services/api';
 import { FiArrowLeft } from 'react-icons/fi';
 
 import { Container } from './styles';
+import { ThemeContext } from '../../context/ThemeContext';
 
 interface ParamsProps {
   code: string;
@@ -39,6 +40,8 @@ interface CountryProps {
 }
 
 export function Country() {
+  const { themeDark } = useContext(ThemeContext);
+
   const { code } = useParams<ParamsProps>();
   const history = useHistory();
 
@@ -67,53 +70,55 @@ export function Country() {
     <main>
       <Header />
 
-      <Container>
-        {loading ? (
-          <Loader />
-        ) : (
-          <>
-            <button type="button" onClick={handleBack}>
-              <FiArrowLeft size={20} />
-              Back
-            </button>
+      <Container theme={themeDark}>
+        <div>
+          {loading ? (
+            <Loader />
+          ) : (
+            <>
+              <button type="button" onClick={handleBack}>
+                <FiArrowLeft size={20} />
+                Back
+              </button>
 
-            <div className="country-wrapper">
-              <img src={country?.flag} alt={country?.name}/>
-              <div>
-                <h2>{country?.name}</h2>
+              <div className="country-wrapper">
+                <img src={country?.flag} alt={country?.name}/>
+                <div>
+                  <h2>{country?.name}</h2>
 
-                <ul>
-                  <li><strong>Native Name:</strong> {country?.nativeName}</li>
-                  <li><strong>Population:</strong> {country?.population}</li>
-                  <li><strong>Region:</strong> {country?.region}</li>
-                  <li><strong>Sub Region:</strong> {country?.subregion}</li>
-                  <li><strong>Capital:</strong> {country?.capital}</li>
-                  <li>
-                    <strong>Top Level Domain: </strong>
-                    {country?.topLevelDomain.join(', ')}
-                  </li>
-                  <li>
-                    <strong>Currencies: </strong>
-                    {country?.currencies.map(currency => <span key={currency.code}>{currency.name}</span>)}
-                  </li>
-                  <li>
-                    <strong>Languages: </strong>
-                    {country?.languages.map(language => language.name).join(', ')}
-                  </li>
-                </ul>
+                  <ul>
+                    <li><strong>Native Name:</strong> {country?.nativeName}</li>
+                    <li><strong>Population:</strong> {country?.population}</li>
+                    <li><strong>Region:</strong> {country?.region}</li>
+                    <li><strong>Sub Region:</strong> {country?.subregion}</li>
+                    <li><strong>Capital:</strong> {country?.capital}</li>
+                    <li>
+                      <strong>Top Level Domain: </strong>
+                      {country?.topLevelDomain.join(', ')}
+                    </li>
+                    <li>
+                      <strong>Currencies: </strong>
+                      {country?.currencies.map(currency => <span key={currency.code}>{currency.name}</span>)}
+                    </li>
+                    <li>
+                      <strong>Languages: </strong>
+                      {country?.languages.map(language => language.name).join(', ')}
+                    </li>
+                  </ul>
 
-                <div className="border-countries">
-                  <p>Border Countries: </p>
-                  {country?.borders.map(border => (
-                    <Link key={border} to={`/country/${border}`}>
-                      {border}
-                    </Link>
-                  ))}
+                  <div className="border-countries">
+                    <p>Border Countries: </p>
+                    {country?.borders.map(border => (
+                      <Link key={border} to={`/country/${border}`}>
+                        {border}
+                      </Link>
+                    ))}
+                  </div>
                 </div>
               </div>
-            </div>
-          </>
-        )}
+            </>
+          )}
+        </div>
       </Container>
     </main>
   )

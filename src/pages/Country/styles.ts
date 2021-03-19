@@ -1,20 +1,34 @@
 import styled from 'styled-components';
 
-export const Container = styled.section`
-  max-width: 1440px;
-  width: 100%;
-  padding: 0 20px;
-  margin: 0 auto;
+interface CountryProps {
+  theme: boolean;
+}
+
+export const Container = styled.section<CountryProps>`
+  background: ${props => props.theme === true ? 'var(--dark-mode-bg)' : 'var(--light-mode-bg)'};
+  color: ${props => props.theme === true ? 'var(--white)' : 'var(--light-mode-text)'};
+  min-height: calc(100vh - 80px);
+
+  transition: background .2s, color .2s;
+
+  padding-top: 50px;
+
+  & > div {
+    max-width: 1440px;
+    width: 100%;
+    padding: 0 20px;
+    margin: 0 auto;
+  }
 
   button {
-    background: var(--white);
+    background: ${props => props.theme === true ? 'var(--dark-blue)' : 'var(--white)'};
+    color: ${props => props.theme === true ? 'var(--white)' : 'var(--light-mode-text)'};
     border-radius: 5px;
     box-shadow: 0 0 7px rgba(0, 0, 0, 0.2);
     width: 150px;
     height: 45px;
     border: 0;
 
-    margin-top: 50px;
     margin-bottom: 60px;
 
     display: flex;
@@ -30,8 +44,8 @@ export const Container = styled.section`
     transition: background .2s, color .2s;
 
     &:hover {
-      background: var(--dark-blue);
-      color: var(--white);
+      background: ${props => props.theme === true ? 'var(--white)' : 'var(--dark-blue)'};
+      color: ${props => props.theme === true ? 'var(--light-mode-text)' : 'var(--white)'};
     }
   }
 
@@ -88,7 +102,9 @@ export const Container = styled.section`
         justify-content: center;
         font-size: .85rem;
 
-        background: var(--white);
+        background: ${props => props.theme === true ? 'var(--dark-blue)' : 'var(--white)'};
+        color: ${props => props.theme === true ? 'var(--white)' : 'var(--light-mode-text)'};
+
         box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 
         margin-right: 10px;
@@ -97,8 +113,8 @@ export const Container = styled.section`
         transition: background .2s, color .2s;
 
         &:hover {
-          background: var(--dark-blue);
-          color: var(--white);
+          background: ${props => props.theme === true ? 'var(--white)' : 'var(--dark-blue)'};
+          color: ${props => props.theme === true ? 'var(--light-mode-text)' : 'var(--white)'};
         }
       }
     }
